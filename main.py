@@ -13,8 +13,8 @@ word_font = ("Arial", 48, "bold")
 
 window = tk.Tk()
 window.title("German Flash Cards")
-window.minsize(800, 650)
-window.configure(background=BACKGROUND_COLOR)
+window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
+
 
 frame_card = tk.Frame(window, bg=BACKGROUND_COLOR, bd=0)
 canvas_card = tk.Canvas(frame_card, bg=BACKGROUND_COLOR, height=CANVAS_HEIGHT, width=CANVAS_WIDTH, highlightthickness=0)
