@@ -24,9 +24,10 @@ def read_data(data_file, encoding):
     try:
         # Ensure csv file has Byte Order Mark (BOM) = big-endian for utf-16
         # i.e. The first two words of the file = 0xFFFE
-        with open(data_file, mode="r", encoding=encoding) as file:
-            data_frame = pandas.read_csv(file)
-            # print(data_frame)
+        # NOTE: No need to open the file when using Pandas
+        # with open(data_file, mode="r", encoding=encoding) as file:
+        data_frame = pandas.read_csv(data_file)
+        # print(data_frame)
     except FileNotFoundError:
         messagebox.showinfo(parent=window, title="Error", message=f"The data file {data_file} could not be found.")
     else:
