@@ -79,6 +79,8 @@ def save_words():
 def display_card_front():
     """Display the card front with the foreign word"""
     global word_list, random_dict, foreign_word, english_word, flip_timer
+    button_right["state"] = "disabled"
+    button_wrong["state"] = "disabled"
     # Cancel event timer if a new word is selected
     window.after_cancel(flip_timer)
     # Get a random word
@@ -94,6 +96,8 @@ def display_card_front():
 
 def display_card_back():
     """Display the card back with the English word"""
+    button_right["state"] = "active"
+    button_wrong["state"] = "active"
     # Change the word on the card - English
     canvas_card.itemconfig(canvas_title, text=language_1, fill="white")
     canvas_card.itemconfig(canvas_word, text=english_word, fill="white")
@@ -108,7 +112,12 @@ window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
 
 flip_timer = window.after(5000, func=display_card_back)
 
-canvas_card = tk.Canvas(bg=BACKGROUND_COLOR, width=CANVAS_WIDTH, height=CANVAS_HEIGHT, highlightthickness=0)
+canvas_card = tk.Canvas(
+    bg=BACKGROUND_COLOR,
+    width=CANVAS_WIDTH,
+    height=CANVAS_HEIGHT,
+    highlightthickness=0
+)
 image_front = tk.PhotoImage(file="./images/card_front.png")
 image_back = tk.PhotoImage(file="./images/card_back.png")
 canvas_image = canvas_card.create_image(424, 287, image=image_front)
@@ -116,11 +125,21 @@ canvas_title = canvas_card.create_text(400, 150, text="Title", font=title_font)
 canvas_word = canvas_card.create_text(400, 263, text="ABCDEFGHIJKLMNOP", font=word_font)
 
 image_wrong = tk.PhotoImage(file="./images/wrong.png")
-button_wrong = tk.Button(image=image_wrong, relief="flat", borderwidth=0, highlightthickness=0,
-                         command=display_card_front)
+button_wrong = tk.Button(
+    image=image_wrong,
+    relief="flat",
+    borderwidth=0,
+    highlightthickness=0,
+    command=display_card_front
+)
 image_right = tk.PhotoImage(file="./images/right.png")
-button_right = tk.Button(image=image_right, relief="flat", borderwidth=0, highlightthickness=0,
-                         command=remove_word)
+button_right = tk.Button(
+    image=image_right,
+    relief="flat",
+    borderwidth=0,
+    highlightthickness=0,
+    command=remove_word
+)
 
 
 # Grid layout

@@ -3,12 +3,15 @@ import pandas
 from random import randint, choice
 
 BACKGROUND_COLOR = "#B1DDC6"
-current_card={}
+current_card = {}
 
 try:
     data_frame = pandas.read_csv("data/french_words_to_learn.csv")
 except FileNotFoundError:
     data_frame = pandas.read_csv("data/french_words.csv")
+except pandas.errors.EmptyDataError:
+    print("No more words to learn")
+    exit()
 
 # print(data_frame)
 to_learn = data_frame.to_dict(orient="records")
@@ -37,7 +40,6 @@ def is_known():
     data = pandas.DataFrame(to_learn)
     data.to_csv("data/french_words_to_learn.csv", index=False)
     next_card()
-
 
 
 window = Tk()
