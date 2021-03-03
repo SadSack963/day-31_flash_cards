@@ -4,6 +4,10 @@ import pandas
 from random import choice
 import os
 
+# Audio suggested by HUGO https://www.udemy.com/course/100-days-of-code/learn/#questions/14256878
+from gtts import gTTS  # Google Text-to-Speech
+import playsound
+
 
 BACKGROUND_COLOR = "#B1DDC6"
 CARD_WIDTH = 800
@@ -91,6 +95,13 @@ def display_card_front():
     canvas_card.itemconfig(canvas_title, text=language_0, fill="black")
     canvas_card.itemconfig(canvas_word, text=foreign_word, fill="black")
     canvas_card.itemconfig(canvas_image, image=image_front)
+
+    # Play Audio of word using Google Text-to-Speech
+    audio_output = gTTS(text=foreign_word, lang="de")
+    audio_output.save("foreign_word.mp3")
+    playsound.playsound("foreign_word.mp3", True)
+    os.remove("foreign_word.mp3")
+
     flip_timer = window.after(5000, func=display_card_back)
 
 
@@ -102,6 +113,12 @@ def display_card_back():
     canvas_card.itemconfig(canvas_title, text=language_1, fill="white")
     canvas_card.itemconfig(canvas_word, text=english_word, fill="white")
     canvas_card.itemconfig(canvas_image, image=image_back)
+
+    # Play Audio of word using Google Text-to-Speech
+    audio_output = gTTS(text=english_word, lang="en")
+    audio_output.save("english_word.mp3")
+    playsound.playsound("english_word.mp3", True)
+    os.remove("english_word.mp3")
 
 
 # ---------------- UI Setup -------------------
@@ -150,6 +167,8 @@ button_right.grid(row=1, column=1)
 
 # canvas_title.config(text="French")
 # word_list = read_data(french_csv, french_encoding)
+# display_card_front("fr")
+
 canvas_card.itemconfig(canvas_title, text="German")
 read_data(german_csv, german_encoding)
 display_card_front()
